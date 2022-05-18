@@ -1,6 +1,5 @@
-import React, { useState, useEffect} from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { formatId } from '../../utils/utils.js'
+import React, { useState} from 'react'
+import { useSelector } from 'react-redux';
 
 import ViewEditField from '../ViewEditField/ViewEditField'
 import AssetTransferForm from '../AssetTransferForm/AssetTransferForm'
@@ -8,17 +7,18 @@ import AssetTransferForm from '../AssetTransferForm/AssetTransferForm'
 
 import { 
 	useGetOneAssetQuery,
+	useGetAssetListsQuery,
 	useEditAssetMutation
 	 } 
 	 from '../../api/apiAssetSlice';
 
-const ID_PADDING = 2;
-
-const AssetCard = ({serial_number, getStockItemDetails, update, setUpdate }) => {
+const AssetCard = ({getStockItemDetails, update, setUpdate }) => {
 	const [moveOpen, setMoveOpen] = useState(false);
 
+	const serial_number = useSelector(state => state.asset.serial)
 
-	const {data:asset, isSuccess} = useGetOneAssetQuery(serial_number);
+	const {data:asset, isSuccess, refetch} = useGetOneAssetQuery(serial_number);
+	const {data:suggestlists} = useGetAssetListsQuery();
 	const [editAsset] = useEditAssetMutation();
 
 	const handleEdit = async (data_field, editvalue) => {
@@ -32,6 +32,7 @@ const AssetCard = ({serial_number, getStockItemDetails, update, setUpdate }) => 
 
 		try {
 			await editAsset(editData).unwrap();
+			refetch()
 		} catch(err) { 
 			alert(err.data.detail);
 		}
@@ -48,56 +49,58 @@ const AssetCard = ({serial_number, getStockItemDetails, update, setUpdate }) => 
 					<h1>LOADINNG</h1>
 				: 
 					<div>
+						<h3 className="bb"> Asset Details </h3>
 						<ViewEditField
 							input_type='suggest'
-							asset_type={asset.asset_type}
+							asset_type={asset?.asset_type}
 							serial={serial_number}
-							suggestlist={'makeList'}
+							suggestlist={suggestlists?.[asset?.asset_type]?.makeList}
 							label= 'Make:'
-							value={asset.make}
+							value={asset?.make}
 							data_field='make'
 							handleEdit={handleEdit}
 							/>		
 						<ViewEditField
 							input_type='suggest'
-							asset_type={asset.asset_type}
+							asset_type={asset?.asset_type}
 							serial={serial_number}
-							suggestlist={'modelList'}
+							suggestlist={suggestlists?.[asset?.asset_type]?.modelList}
 							label= 'Model:'
-							value={asset.model}
+							value={asset?.model}
 							data_field='model'
 							handleEdit={handleEdit}
 							/>
 						<ViewEditField
 							input_type='suggest'
-							asset_type={asset.asset_type}
+							asset_type={asset?.asset_type}
 							serial={serial_number}
-							suggestlist={'conditionList'}
+							suggestlist={suggestlists?.[asset?.asset_type]?.conditionList}
 							label= 'Condition:'
-							value={asset.asset_condition}
-							data_field='model'
+							value={asset?.asset_condition}
+							data_field='asset_condition'
 							handleEdit={handleEdit}
 							/>
 						<ViewEditField
 							input_type='text'
-							asset_type={asset.asset_type}
+							asset_type={asset?.asset_type}
 							serial={serial_number}
 							label= 'Serial:'
-							value={asset.serialnumber}
+							value={asset?.serialnumber}
 							data_field='serialnumber'
 							handleEdit={handleEdit}
 							/>
 						<div>
-							<span className="dib w4 pr5 mv2">Location:</span><span>{asset.location}</span>
+							<span className="dib w4 pr5 mv2">Location:</span><span>{asset?.location}</span>
 						</div>
 						{moveOpen 
 						?	
 							<AssetTransferForm
-								asset_id={asset.asset_id}
+								asset_id={asset?.asset_id}
 								close_transfer={closeTransfer}
 							/> 
 						: 
 							<button 
+                                className="mt3"
 								onClick={() => setMoveOpen(true)}
 								>Capure Stock Movement</button>
 						}				

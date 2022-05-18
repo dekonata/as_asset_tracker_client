@@ -1,58 +1,32 @@
 import{ useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 
 import SuggestBox from '../components/SuggestBox/SuggestBox';
 import StaffCard from '../components/StaffCard/StaffCard'
-import AssetList from '../components/AssetList/AssetList'
+
+import { setStaffId } from '../components/StaffCard/staffCardSlice'
+import { 
+	useGetStaffListsQuery,
+	 } 
+	 from '../api/apiStaffSlice';
 
 const ViewEditLocation = () => {
-	const location_list = useSelector(state => state.suggestlists.locationlists.locations)
+	const dispatch = useDispatch();
 
-
-	const [staffID, setStaffID] = useState('')
+	const staffId = useSelector(state => state.staff.staffId)
+	const {data: stafflists} = useGetStaffListsQuery()
 
 	return (
 		<div className="">
-			<SuggestBox 
-				label="Search by ID:"
-				suggestlist={location_list}
-				handleInputChange={(id) => setStaffID(id)}
-			/>
+			{console.log(staffId)}
 			<SuggestBox 
 				label="Search by Name:"
-				suggestlist={location_list}
-				handleInputChange={(name) => setStaffID(name)}
+				suggestlist={stafflists?.staffList}
+				handleInputChange={(staffmember) => dispatch(setStaffId((staffmember.substr(5,2))))}
 			/>
-			<SuggestBox 
-				label="Search by Surname:"
-				suggestlist={location_list}
-				handleInputChange={(surname) => setStaffID(surname)}
-			/>
-			<h2 className="bb">Staff Member Details</h2>
-		{staffID && 
+		{staffId && 
 			<div>
-				<StaffCard
-					staff_id={'id1'}
-					firstname={'Ben'}
-					lastname={'Jeramy Johnson van Helburger'}
-				/>
-				<AssetList
-					asset_list={[
-						{
-						serial_number: 'Z100', 
-						asset_type: 'Mini Mandela Micromin', 
-						make:'Lenovo', 
-						model:"X4000000000000000000000 0000000000000000000000000"
-						},
-						{
-						serial_number: 'Z100', 
-						asset_type: 'Mini Mandela Micromin', 
-						make:'Lenovo smart LKED', 
-						model:"X400"
-						},
-
-					]}
-				/>
+				<StaffCard/>
 			</div>
 		}
 		</div>

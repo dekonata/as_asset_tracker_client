@@ -5,6 +5,9 @@ const assetsApi = emptySplitApi.injectEndpoints({
 		getAssets: builder.query({
 			query: () => '/assets/all'
 		}),
+		getTypeAssets: builder.query({
+			query: (asset_type) => `/assets/alltype/${asset_type}`
+		}),
 		getAssetLists: builder.query({
 			query: () => '/assets/assetlists',
 			providesTags: ['Assets']
@@ -34,7 +37,9 @@ const assetsApi = emptySplitApi.injectEndpoints({
 
 export const { 
 	useGetAssetsQuery, 
+	useGetTypeAssetsQuery,
 	useGetAssetListsQuery,
 	useGetOneAssetQuery,
 	useAddAssetMutation,
-	useEditAssetMutation } = assetsApi;
+	useEditAssetMutation 
+} = assetsApi;

@@ -3,29 +3,18 @@ import React, { useState, useEffect } from 'react'
 import SuggestBox from '../SuggestBox/SuggestBox';
 import TextInput from '../TextInput/TextInput'
 
-import { 
-	useGetAssetListsQuery
-	} from '../../api/apiAssetSlice';
 
 const ViewEditField = ({input_type, asset_type, serial, suggestlist, label, value, data_field, handleEdit}) => {
 	// Editable data fields on View/Edit page
 	const [ editOpen, setEditOpen ] = useState(false);
 	const [ editValue, setEditValue ] = useState(value);
-	const [ suggestList, setSuggestList ] = useState([]);
 
-	// Close edit if different stock item is selected
+	// Close edit if different stock item is selected and clear edit value
 	useEffect(() => {
 		setEditOpen(false)
+		// setEditValue('')
 	}, [serial])
 
-	const {data: assetlists, isSuccess} = useGetAssetListsQuery();
-
-	useEffect(() => {
-		if(isSuccess && assetlists && assetlists[asset_type]) {
-			setSuggestList(assetlists[asset_type][suggestlist])
-			// setSuggestList(assetlists[asset_type][data_field])
-		}
-	}, [isSuccess, assetlists, asset_type, suggestlist])
 
 	const onSubmitEdit = (event) => {
 		event.preventDefault();
@@ -54,10 +43,11 @@ const ViewEditField = ({input_type, asset_type, serial, suggestlist, label, valu
 					?
 						<div>
 							<form className="bg-light-silver">
+							{console.log(suggestlist)}
 								<SuggestBox 
 									initial_input={value}
 									label={label}
-									suggestlist={suggestList} 
+									suggestlist={suggestlist} 
 									addNewEnabled={true}
 									handleInputChange={input_value => setEditValue(input_value)}
 									/>

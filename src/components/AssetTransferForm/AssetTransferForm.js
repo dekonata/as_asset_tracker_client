@@ -42,8 +42,11 @@ const AssetTransferForm = ({asset_id, close_transfer}) => {
 
 		try {
 			const addTransfer = await addAssetTransfer(transferData);
-			close_transfer()
-			alert(addTransfer);
+			close_transfer();
+			if(addTransfer.error) {
+				return alert(addTransfer.error.data);
+			}
+			alert('Transfer Successful');
 		} catch(err) {
 			alert(err);
 		}

@@ -12,7 +12,7 @@ const transfersApi = emptySplitApi.injectEndpoints({
 				method: 'POST',
 				body: transferData
 			}),
-			invalidatesTags: ['Transfers', 'Asset']
+			invalidatesTags: ['Transfers', 'Asset', 'Accessory']
 		}),
 	})
 })

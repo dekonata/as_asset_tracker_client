@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import SuggestBox from '../components/SuggestBox/SuggestBox';
 import TextInput from '../components/TextInput/TextInput';
 
@@ -14,20 +14,8 @@ const AddNewAccessory = () => {
 	const [make, setMake] = useState('');
 	const [description, setDescription] = useState('');
 
-	const [types, setTypes] = useState([])
-	const [makes, setMakes] = useState([])
-
 	const {data: assetlists, isSuccess } = useGetAssetListsQuery()
 	const [addAccessorry] = useAddAssetMutation()
-
-	// useEffect(() => {
-	// 	if(isSuccess && assetlists['acc']) {
-	// 		const  { makeList, typeList } = assetlists['acc']
-
-	// 		setMakes(makeList)
-	// 		setTypes(typeList)
-	// 	}
-	// }, [isSuccess,  assetlists])
 
 	const onSubmitAddAccessory = async (event) => {
 		event.preventDefault();
@@ -56,7 +44,6 @@ const AddNewAccessory = () => {
 
 	return (
 		<div>	
-			{console.log(assetlists)}
 			{ !isSuccess 
 				?
  					<h1> LOADING </h1>

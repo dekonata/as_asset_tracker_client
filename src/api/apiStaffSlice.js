@@ -6,6 +6,10 @@ const staffApi = emptySplitApi.injectEndpoints({
 			query: () => '/staff/stafflists',
 			providesTags: ['Staff']
 		}),
+		getOneStaff: builder.query({
+			query: (staff_id) => `/staff/one/${staff_id}`,
+			providesTags: ['Onestaff']
+		}),
 		addStaff: builder.mutation({
 			query: staffData => ({
 				url: '/staff/add',
@@ -13,8 +17,21 @@ const staffApi = emptySplitApi.injectEndpoints({
 				body: staffData
 			}),
 			invalidatesTags: ['Staff']
+		}),
+		editStaff: builder.mutation({
+			query: editData => ({
+				url: '/staff/edit',
+				method: 'PUT',
+				body: editData
+			}),
+			invalidatesTags: ['Onestaff']
 		})
 	})
 })
 
-export const { useGetStaffListsQuery, useAddStaffMutation } = staffApi;
+export const { 
+	useGetStaffListsQuery, 
+	useGetOneStaffQuery, 
+	useAddStaffMutation, 
+	useEditStaffMutation 
+} = staffApi;

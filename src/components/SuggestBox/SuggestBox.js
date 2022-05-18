@@ -60,7 +60,7 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 		setInputValue(event.target.value)
 		handleInputChange(''); 
 		setSuggestOpen(true)
-		if (event.target.value) {
+		if (event.target.value && Array.isArray(suggestlist)) {
 			const filtered = suggestlist.filter(serial => {
 				if(typeof serial === 'string') {
 					return serial.toLowerCase().includes(event.target.value.toLowerCase());
@@ -68,8 +68,7 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 				return null
 			});
 			setFilteredList(filtered.slice(0,10))
-		} 
-		else {
+		} else if (Array.isArray(suggestlist)) {
 			setFilteredList(suggestlist.slice(0,10));
 		}
 	}

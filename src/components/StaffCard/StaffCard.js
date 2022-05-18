@@ -1,67 +1,82 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import ViewEditField from '../ViewEditField/ViewEditField'
+import React from 'react';
+import { useSelector } from 'react-redux';
 
-const StaffCard = ({staff_id, firstname, lastname, update, setUpdate }) => {
-	const { types, makes, models } = useSelector(state => state.suggestlists.stocklists)
+import ViewEditField from '../ViewEditField/ViewEditField';
+import AssetList from '../AssetList/AssetList';
+import LocationAccessoryList from '../LocationAccessoryList/LocationAccessoryList';
+
+import { useGetOneStaffQuery, useEditStaffMutation } from '../../api/apiStaffSlice'
+
+
+
+
+
+
+const StaffCard = () => {
+	const staffId = useSelector(state => state.staff.staffId);
+
+	const {data: staffMember, isSuccess, refetch} = useGetOneStaffQuery(staffId);
+	const [editStaff] = useEditStaffMutation();
 
 	const handleEdit = async (data_field, editvalue) => {
-		try {
-		const url = 'http://localhost:3000/editstockitem';
-		const config = {
-			method: 'put',
-			headers: {'Content-Type': 'application/json'},
-			body: JSON.stringify({
-				staff_id: staff_id,
-				update_hash: {
-				[data_field]: editvalue	
-				}
-			})
+		const editData = {
+			staff_id: staffMember.staff_id,
+			payload: {
+				[data_field]: editvalue
+			}
 		};
 
-		const response = await fetch(url, config);
-		const json_response =  await response.json();
-		setUpdate(update + 1)
-
-		if(!response.ok) {
-			throw new Error(json_response.code);
-		} 
-
-
+		try {
+			const edit = await editStaff(editData).unwrap();
+				refetch();
+				alert(edit);
 		} catch(err) {
 			console.log(err);
-			alert('There was a problem')
 		}
 	}
 
 	return(
-		<div className=''>
-			<ViewEditField
-				serial={staff_id}
-				suggestlist={types}
-				label= 'Staff ID: '
-				value={staff_id}
-				data_field='stock_type'
-				handleEdit={handleEdit}
-				/>
-			<ViewEditField
-				serial={staff_id}
-				suggestlist={makes}
-				label= 'First Name:'
-				value={firstname}
-				data_field='make'
-				handleEdit={handleEdit}
-				/>
-			<ViewEditField
-				serial={staff_id}
-				suggestlist={models}
-				label= 'Last Name:'
-				value={lastname}
-				data_field='model'
-				handleEdit={handleEdit}
-				/>
+       <div className=''>
+            {!isSuccess
+                ?
+                    <h1>LOADINNG</h1>
+                : 
+                    <div>
+                        <h3 className="bb">Staff Details</h3>
+                        <div>
+                            <span className="dib w4 pr5 mv2">Staff ID:</span><span>{(staffMember?.parsed_id)}</span>
+                        </div>
+                        <ViewEditField
+                            input_type='text'
+                            asset_type={'staff'}
+                            serial={staffMember?.staff_id}
+                            label= 'Firstname:'
+                            value={staffMember?.firstname}
+                            data_field='firstname'
+                            handleEdit={handleEdit}
+                            />
+                        <ViewEditField
+                            input_type='text'
+                            asset_type={'staff'}
+                            serial={staffMember?.staff_id}
+                            label= 'Lastname:'
+                            value={staffMember?.lastname}
+                            data_field='lastname'
+                            handleEdit={handleEdit}
+                            />
+                        <h3 className="bb">Assets</h3> 
+                        <AssetList
+                        	asset_list={staffMember?.assets}
+                        />
+                        <h3 className="bb">Accessories</h3>                     
+                        <LocationAccessoryList
+                        	accessory_list={staffMember?.acc}
+                        />                                                         
+                    </div>
+
+            }      
 		</div>
-	)
+	);
 }
 
 export default StaffCard

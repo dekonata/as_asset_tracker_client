@@ -1,18 +1,10 @@
 import React from 'react';
 import { DateFormatter } from '../../utils/utils';
 
-import {useGetAssetTransfersQuery } from '../../api/apiTransfersSlice';
-
-const AssetMovementTable = ({ serialnumber, movement_list, deleteMovement }) => {
-	const {data: transferslist, isSuccess } = useGetAssetTransfersQuery(serialnumber);
-
+const AccessoryMovementTable = ({ accessory_id, movements, deleteMovement }) => {
 	return(
 		<div className="pa2">
-			<h3  className="bb">Asset Transfers</h3>
-			{!isSuccess 
-				?
-					<h1>LOADING</h1>
-				: 
+			<h3 className="bb">Transfers</h3>
 					<div className="overflow-auto">
 					    <table className="f7 w-100 mw8 center" cellSpacing="0">
 						    <thead>
@@ -22,8 +14,8 @@ const AssetMovementTable = ({ serialnumber, movement_list, deleteMovement }) => 
 						      	 	<th className="fw6 tl pa2 bg-white">Capture Date</th>
 					      	 	</tr>
 					      	</thead>
-					      	<tbody className="lh-copy">		
-			    				{transferslist.map((transfer,i) => {
+					      	<tbody className="lh-copy">
+			    				{movements.map((transfer,i) => {
 									const parsedTransferDate = DateFormatter(new Date(transfer.transfer_date));
 									const parsedCaptureDate = DateFormatter(new Date(transfer.capture_time));
 									return (
@@ -44,9 +36,8 @@ const AssetMovementTable = ({ serialnumber, movement_list, deleteMovement }) => 
 							</tbody>
 						</table>
 					</div>
-				}
 		</div>
 	)
 }
 
-export default AssetMovementTable;
+export default AccessoryMovementTable;
