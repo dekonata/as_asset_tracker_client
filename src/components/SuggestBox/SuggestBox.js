@@ -2,12 +2,15 @@ import { useState, useRef, useLayoutEffect, useEffect } from 'react';
 import useRoveFocus from "./useRoveFocus";
 import ListItem from "./ListItem"
 
-
+// Suggestbox accepts a array of values as suggeslist to show in dropdown
+// Initial input may be provided to set initial text box value
+// function must be provided to for changing value that will be captured
 const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInputChange}) => {
 	const [suggestOpen, setSuggestOpen] = useState(false)
 	const [filteredList, setFilteredList] = useState(['']);
+
+	// Set filteredList value to first 10 values of suggestlist provided
 	useEffect(() => {
-    // Set filteredList value to first 10 values of suggestlist provided
     	if (Array.isArray(suggestlist)) {
     		const shortlist = suggestlist.slice(0,10)
     		setFilteredList(shortlist)
@@ -61,11 +64,12 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 		handleInputChange(''); 
 		setSuggestOpen(true)
 		if (event.target.value && Array.isArray(suggestlist)) {
-			const filtered = suggestlist.filter(serial => {
-				if(typeof serial === 'string') {
-					return serial.toLowerCase().includes(event.target.value.toLowerCase());
+			const filtered = suggestlist.filter(suggest => {
+				if(typeof suggest === 'string') {
+					return suggest.toLowerCase().includes(event.target.value.toLowerCase());
+				} else {
+					return null
 				}
-				return null
 			});
 			setFilteredList(filtered.slice(0,10))
 		} else if (Array.isArray(suggestlist)) {

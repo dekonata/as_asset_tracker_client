@@ -1,4 +1,3 @@
-import React from 'react';
 import { useDispatch } from 'react-redux';
 
 import { setAsset } from '../AssetCard/assetCardSlice'
@@ -12,7 +11,7 @@ const AssetTypeList = ({asset_type, set_serial}) => {
 
     return(
         <div className="pa2">
-            <h3 className="z-0">{asset_type.toUpperCase()}s</h3>
+            <h3 className="z-0">{asset_type.toUpperCase()}</h3>
 
             {!isSuccess 
                 ?
@@ -28,18 +27,18 @@ const AssetTypeList = ({asset_type, set_serial}) => {
                                     <th className="fw6 tl pa2 bg-white">Condition</th>
                                 </tr>
                             </thead>
-                            <tbody className="lh-copy">     
+                            <tbody className="lh-copy">
                                 {assets.map((asset,i) => {
                                     return (                            	
-                                        <tr 
-                                            className="stripe-dark pointer" 
-                                            key={'movement ' + i}
+                                        <tr
+                                            className="stripe-dark pointer"
+                                            key={i}
                                             onClick={event => dispatch(setAsset(asset.serialnumber))}>
                                                 <td className="pa1">{asset.serialnumber}</td>
-                                                <td className="relative hide-child pa1">{asset.model}</td>                                         
-                                                <td className="pa1">{asset.location}</td>                                             
+                                                <td className="pa1">{asset.model}</td>
+                                                <td className="pa1">{asset.location}</td>
                                                 <td className="pa1">{asset.asset_condition}</td>
-                                        </tr>
+                                            </tr>
                                     )
                                 })}
                             </tbody>

@@ -24,7 +24,7 @@ const staffApi = emptySplitApi.injectEndpoints({
 				method: 'PUT',
 				body: editData
 			}),
-			invalidatesTags: ['Onestaff']
+			invalidatesTags: ['Onestaff', 'Staff']
 		})
 	})
 })

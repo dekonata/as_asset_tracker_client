@@ -42,7 +42,6 @@ const AddNewAsset = () => {
 		if(imei) {
 			postData.asset.imei = imei
 		}
-
 		// add description for misc assets
 		if(description) {
 			postData.asset.description = description
@@ -51,6 +50,8 @@ const AddNewAsset = () => {
 		await addAsset(postData).unwrap();
 		if(addAsset.error) {
 			alert('Could not add asset. Check Data');
+		} else if (addAsset.status === 401) {
+			alert("NOOOO")
 		} else {
 			alert('Asset added');
 			setTransferDate('');
@@ -134,7 +135,7 @@ const AddNewAsset = () => {
 								onClick={onSubmitAddNewAsset}
 								/>
 						}
-						: <div></div>
+						<div></div>
 					</form>
 			}
 		</div>

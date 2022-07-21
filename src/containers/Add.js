@@ -9,7 +9,7 @@ import AddNewShelf from '../pages/AddNewShelf'
 import SuggestBox from '../components/SuggestBox/SuggestBox';
 
 
-const Add = ({add_list}) => {
+const Add = () => {
 	const [addValue, setAddValue] = useState('');
 	const [addList] = useState(['Asset', 'Cabinet', 'Shelf' ,'Staff', 'Accessory']);
 

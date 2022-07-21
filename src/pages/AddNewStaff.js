@@ -14,6 +14,8 @@ const AddNewStorageLocation = () => {
 	const [staffCodeId, setStaffCodeId] = useState('');
 	const [firstname, setFirstName] = useState('');
 	const [lastname, setLastName] = useState('');
+	const [email, setEmail] = useState('');
+	const [password, setPassword] = useState('');
 	const {data: stafflists, isSuccess }  = useGetStaffListsQuery();
 
 	const [addStaff] = useAddStaffMutation();
@@ -29,7 +31,9 @@ const AddNewStorageLocation = () => {
 		const postData = {
 			staff_id,
 			firstname,
-			lastname
+			lastname,
+			email,
+			password,
 		}
 		try {
 			await addStaff(postData).unwrap();
@@ -59,6 +63,16 @@ return (
 				label="Last Name:"
 				value={lastname}
 				handleInputChange={event => setLastName(event.target.value)}
+				/>
+			<TextInput
+				label="Company Email Address:"
+				value={email}
+				handleInputChange={event => setEmail(event.target.value)}
+				/>
+			<TextInput
+				label="Password:"
+				value={password}
+				handleInputChange={event => setPassword(event.target.value)}
 				/>
 			{ staffCodeId  && firstname && lastname &&
 				<input 

@@ -2,12 +2,22 @@ import React from 'react';
 import { useDispatch } from 'react-redux'
 
 import { setAccessory } from '../AccessoryCard/accessoryCardSlice';
+import { setViewEditPage } from '../../containers/ViewEdit/viewEditSlice'
 
 const LocationAccessoryList = ({accessory_list}) => {
+	const dispatch = useDispatch()
+
+	const selectAccessory = (acc_id) => {
+		dispatch(setAccessory(acc_id))
+		dispatch(setViewEditPage('Accessories'))
+	}
+
     return(
     	<div className="">
-        	{Array.isArray(accessory_list)
+        	{accessory_list.length === 0
         		?
+					<div><h3 className="tc"> No Accessories</h3></div> 
+            	:
 			        <div className="overflow-visible">        		
 			            <table className="f7 w-100 mw8 center" cellSpacing="0">
 			                <thead className="pt">
@@ -24,8 +34,9 @@ const LocationAccessoryList = ({accessory_list}) => {
 			                            <tr 
 			                                className="stripe-dark pointer hide-child" 
 			                                key={'movement ' + i}
-			                                onClick={event => console.log('clicked')}>
+			                                onClick={event => selectAccessory(accessory?.accessory_id)}>
 			                                    <td className="pa1">{accessory.parsedid}</td>
+			                                    {console.log(accessory)}
 			                                    <td className="relative pa1">{accessory.accessory_type}
 			                                        <span 
 			                                            className="z-8 absolute dib white child bg-black-70 bottom-2 left-4 pa2 cover"
@@ -39,9 +50,7 @@ const LocationAccessoryList = ({accessory_list}) => {
 			                    })}
 			                </tbody>
 	            		</table>
-            	    </div>
-            	:
-					<div><h3 className="tc"> Incorrect Accessory Format</h3></div> 
+            	    </div>					
         	}
         </div>
     )

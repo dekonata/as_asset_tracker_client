@@ -3,8 +3,10 @@ import React from 'react'
 const AssetList = ({ asset_list }) => {
 	return(
 		<div className="">
-			{Array.isArray(asset_list) 
+			{asset_list.length === 0
 				? 
+					<div><h3 className="tc"> No Assets</h3></div> 
+				:
 					<div className="overflow-auto">
 					    <table className="f7 w-100 mw8 center" cellSpacing="0">
 						    <thead>
@@ -31,9 +33,7 @@ const AssetList = ({ asset_list }) => {
 								})}
 							</tbody>
 						</table>
-					</div>
-				:
-					<div><h3> Incorrect Asset List Format</h3></div> 
+					</div>					
 			}
 		</div>
 	)

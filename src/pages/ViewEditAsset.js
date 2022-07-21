@@ -11,7 +11,7 @@ import { useGetAssetListsQuery}  from '../api/apiAssetSlice';
 
 const ASSET_TYPES = ['Laptop', 'Monitor', 'Modem', 'Cellphone' , 'PC', 'Tablet', 'Misc']
 
-const ViewEditAsset = ({movement_type_list}) => {
+const ViewEditAsset = () => {
 	const [assetType, setAssetType] = useState('');
 	const [serialList, setSerialList] = useState([]);
 

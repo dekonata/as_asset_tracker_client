@@ -1,19 +1,22 @@
 import{ useState } from 'react';
-import SuggestBox from '../components/SuggestBox/SuggestBox';
-import ViewEditAsset from '../pages/ViewEditAsset';
-import ViewEditStorage from '../pages/ViewEditStorage';
-import ViewEditStaff from '../pages/ViewEditStaff';
-import ViewAllAccessories from '../pages/ViewAllAccessories'
+import { useDispatch, useSelector } from 'react-redux';
+
+import SuggestBox from '../../components/SuggestBox/SuggestBox';
+import ViewEditAsset from '../../pages/ViewEditAsset';
+import ViewEditStorage from '../../pages/ViewEditLocation';
+import ViewEditStaff from '../../pages/ViewEditStaff';
+import ViewAllAccessories from '../../pages/ViewAllAccessories'
+
+import { setViewEditPage, selectViewEditPage } from './viewEditSlice';
 
 
-
-
-const ViewEdit= ({movement_type_list}) => {
-	const [viewEditValue, setViewEditValue] = useState('');
+const ViewEdit= () => {
+	const viewEditValue = useSelector(selectViewEditPage);
 	const [addList] = useState(['Asset', 'Location', 'Staff', 'Accessories']);
 
+	const dispatch = useDispatch()
 	const onViewEditSelect = (input_value) => {
-		setViewEditValue(input_value);
+		dispatch(setViewEditPage(input_value))
 	}
 
 	const returnViewEditType = (view_edit_type) => {
@@ -21,7 +24,6 @@ const ViewEdit= ({movement_type_list}) => {
 			case "Asset":
 				return (
 					<ViewEditAsset
-							movement_type_list={movement_type_list}
 					/>
 				);
 			case "Location":
@@ -49,6 +51,7 @@ const ViewEdit= ({movement_type_list}) => {
 		<div>
 			<form className="">
 				<SuggestBox 
+					initial_input={viewEditValue}
 					label="View/Edit"
 					handleInputChange={onViewEditSelect} 
 					suggestlist={addList} />

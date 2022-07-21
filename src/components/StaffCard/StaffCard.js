@@ -1,16 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch ,useSelector } from 'react-redux';
 
 import ViewEditField from '../ViewEditField/ViewEditField';
 import AssetList from '../AssetList/AssetList';
 import LocationAccessoryList from '../LocationAccessoryList/LocationAccessoryList';
 
 import { useGetOneStaffQuery, useEditStaffMutation } from '../../api/apiStaffSlice'
-
-
-
-
-
 
 const StaffCard = () => {
 	const staffId = useSelector(state => state.staff.staffId);
@@ -41,8 +36,8 @@ const StaffCard = () => {
                 ?
                     <h1>LOADINNG</h1>
                 : 
-                    <div>
-                        <h3 className="bb">Staff Details</h3>
+                    <div className="">
+                        <h3 className="bb bw2 tc">Staff Details</h3>
                         <div>
                             <span className="dib w4 pr5 mv2">Staff ID:</span><span>{(staffMember?.parsed_id)}</span>
                         </div>
@@ -64,11 +59,11 @@ const StaffCard = () => {
                             data_field='lastname'
                             handleEdit={handleEdit}
                             />
-                        <h3 className="bb">Assets</h3> 
+                        <h3 className="bb bw2 tc">Assets</h3> 
                         <AssetList
                         	asset_list={staffMember?.assets}
                         />
-                        <h3 className="bb">Accessories</h3>                     
+                        <h3 className="bb bw2 tc">Accessories</h3>                     
                         <LocationAccessoryList
                         	accessory_list={staffMember?.acc}
                         />                                                         

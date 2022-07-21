@@ -1,4 +1,3 @@
-import{ useState } from 'react';
 import { useDispatch ,useSelector } from 'react-redux';
 
 import SuggestBox from '../components/SuggestBox/SuggestBox';
@@ -10,7 +9,7 @@ import {
 	 } 
 	 from '../api/apiStaffSlice';
 
-const ViewEditLocation = () => {
+const ViewEditStaff = () => {
 	const dispatch = useDispatch();
 
 	const staffId = useSelector(state => state.staff.staffId)
@@ -18,7 +17,6 @@ const ViewEditLocation = () => {
 
 	return (
 		<div className="">
-			{console.log(staffId)}
 			<SuggestBox 
 				label="Search by Name:"
 				suggestlist={stafflists?.staffList}
@@ -33,6 +31,6 @@ const ViewEditLocation = () => {
 	);
 }
 
-export default ViewEditLocation;
+export default ViewEditStaff;
 
 
