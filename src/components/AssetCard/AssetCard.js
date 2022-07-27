@@ -97,6 +97,7 @@ const AssetCard = ({getStockItemDetails, update, setUpdate }) => {
 							<AssetTransferForm
 								asset_id={asset?.asset_id}
 								close_transfer={closeTransfer}
+								current_location={asset?.location}
 							/> 
 						: 
 							<button 

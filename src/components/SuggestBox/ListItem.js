@@ -21,7 +21,7 @@ const ListItem = ({ value, focus, index, setFocus, handleSelect }) => {
  			// set value as index to set focus on this element when selected using handleselect
  			value={index}
 	 		className="hover-bg-gray pointer" 
-	 		tabIndex={focus ? 0 : -1}
+	 		tabIndex={!focus ? 0 : -1}
 	 		ref={itemRef}
 	 		onClick={handleSelect}
 	 		onKeyPress={handleKeyPres}

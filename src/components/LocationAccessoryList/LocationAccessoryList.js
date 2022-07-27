@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { setAccessory } from '../AccessoryCard/accessoryCardSlice';
 import { setViewEditPage } from '../../containers/ViewEdit/viewEditSlice'
 
+// set select_enabled to true to allow for selecting accessory
 const LocationAccessoryList = ({accessory_list}) => {
 	const dispatch = useDispatch()
 
@@ -36,7 +37,6 @@ const LocationAccessoryList = ({accessory_list}) => {
 			                                key={'movement ' + i}
 			                                onClick={event => selectAccessory(accessory?.accessory_id)}>
 			                                    <td className="pa1">{accessory.parsedid}</td>
-			                                    {console.log(accessory)}
 			                                    <td className="relative pa1">{accessory.accessory_type}
 			                                        <span 
 			                                            className="z-8 absolute dib white child bg-black-70 bottom-2 left-4 pa2 cover"
@@ -44,7 +44,7 @@ const LocationAccessoryList = ({accessory_list}) => {
 			                                                {accessory.description ? accessory.description : 'No Description'}
 			                                        </span></td>                                                
 			                                    <td className="pa1">{accessory.make}</td>
-			                                    <td className="pa1">{accessory.transfer_date}</td>    			                                                                                 
+			                                    <td className="pa1">{accessory.transfer_date}</td> 			                                                                                 
 			                            </tr>
 			                        )
 			                    })}

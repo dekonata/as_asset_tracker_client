@@ -135,7 +135,6 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 							 				handleSelect={handleSelect}
 							 			/>
 							 		)
-
 							 	})}
 							 	{!filteredList.length && addNewEnabled ?
 								 	<p onClick={handleAddNew} className="f6 link underline  b mv1 pointer">New {label}</p>

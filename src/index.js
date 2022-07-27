@@ -9,7 +9,7 @@ import 'tachyons'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+    <App className="min-h-100"/>
   </Provider>,
   document.getElementById('root')
 );

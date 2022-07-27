@@ -3,6 +3,9 @@ import SuggestBox from '../components/SuggestBox/SuggestBox';
 import TextInput from '../components/TextInput/TextInput';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import AddNewAccessory from './AddNewAccessory.js'
+
 import { 
 	useAddAssetMutation,
 	useGetAssetListsQuery,
@@ -71,7 +74,8 @@ const AddNewAsset = () => {
 				 ? 
 				 	<h1> LOADING </h1>
 				 :
-					<form>
+				 <div>
+					<form className="bb">
 						<div className="">
 							<label className="dib w4 pr5 mv2"> Date Received: </label>
 								<div className="dib">
@@ -84,7 +88,7 @@ const AddNewAsset = () => {
 							label="Asset Type:"
 							initial_input={asset_type}
 							suggestlist={ASSET_TYPES} 
-							addNewEnabled={true}
+							addNewEnabled={false}
 							handleInputChange={input_value => setAssetType(input_value.toLowerCase())}
 							/>
 						{(asset_type === 'misc') &&
@@ -137,7 +141,11 @@ const AddNewAsset = () => {
 						}
 						<div></div>
 					</form>
+					<h2> Add Accessory </h2>
+					<AddNewAccessory/>
+				</div>
 			}
+
 		</div>
 	)
 } 

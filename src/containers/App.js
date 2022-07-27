@@ -40,15 +40,15 @@ function App() {
   }
 
   return (
-    <div>
-      <div className="pa2 pa2-ns center-l center-ns mw6-ns bb relative">
+    <div className="">
+      <div className="center-l center-ns mw6-ns bg-white vh-100">
         {route === "login"
           ?
             <h2> Albatros Asset Tracker Login </h2>
           :
             <Navibar />
         }
-        <div className="pt2 ph1-ns mh1">
+        <div className="pa3 center-l center-ns w-100 ba bg-white min-h-100">
           { 
             returnRoute()
           }

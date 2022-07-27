@@ -10,10 +10,11 @@ const baseQuery = fetchBaseQuery({
   credentials: 'include',
 });
   
-// If no Cookie Session API will reject fetch calls with error
+// If no Cookie Session API will reject fetch calls with error. 
 const baseQueryWithAuth = async (args, api, extraOptions) => {
     let result = await baseQuery(args, api, extraOptions);
-    if (result.error) {
+    if (result.error && result.error.status === 401) {
+      alert("You must log in")
       api.dispatch(setRoute('login'));
     }
     return result;
