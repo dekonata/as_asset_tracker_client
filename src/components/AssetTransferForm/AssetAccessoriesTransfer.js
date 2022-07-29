@@ -7,7 +7,7 @@ const AssetAccessoriesTransfer = ({accessory_list, onSelectAccessory}) => {
 					<div><h3 className="tc"> No Accessories</h3></div> 
             	:
 			        <div className="overflow-visible">  
-			        	<h4 className="bb mb0"> Move Accessories </h4>      		
+			        	<h4 className="bb mb0"> Transfer Accessories </h4>      		
 			            <table className="f7 w-100 mw8 center" cellSpacing="0">
 			                <thead className="pt">
 			                    <tr className="">		                    

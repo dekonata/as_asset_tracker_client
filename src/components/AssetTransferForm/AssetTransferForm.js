@@ -12,7 +12,8 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 	const [locationListObj, setLocationListObj] = useState([]);
 	const [transferTo, setTransferTo] = useState('');
 	const [transferDate, setTransferDate] = useState(new Date());
-	const [acceesoriesTransfer, setAccessoriesTransfer] = useState([]);
+	// List all asset ids to be transferred
+	const [transferAssetIds, setTransferAssetIds] = useState([asset_id]);
 
 	const {data: locations, isSuccess} = useGetAllLocationsQuery();
 	const {data: locationData, isSuccess: gotLocationData} = useGetOneLocationQuery(current_location.split(':')[0]);
@@ -37,9 +38,9 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 	const onSelectAccessory = (event) => {
 		const accessoryAssetId = event?.target?.value
 		if(event.target.checked) {
-			setAccessoriesTransfer(current => [...current, accessoryAssetId])
+			setTransferAssetIds(current => [...current, accessoryAssetId])
 		} else {
-			setAccessoriesTransfer(acceesoriesTransfer.filter(accId => accId !== accessoryAssetId))
+			setTransferAssetIds(transferAssetIds.filter(accId => accId !== accessoryAssetId))
 			}
 
 	}
@@ -48,8 +49,7 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 		event.preventDefault();
 
 		const transferData = {
-			asset_id: asset_id,
-			accessories: acceesoriesTransfer,
+			asset_ids: transferAssetIds,
 			location_id: locationListObj[transferTo],
 			transfer_date: transferDate
 
@@ -69,7 +69,7 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 
 	return (
 		<div>
-		{console.log(acceesoriesTransfer)}
+		{console.log(transferAssetIds)}
 			<form className='bg-black-10'>
 				<SuggestBox 
 					label="Transfer To"
