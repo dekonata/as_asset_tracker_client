@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 
-const ListItem = ({ value, focus, index, setFocus, handleSelect }) => {
+const ListItem = ({ value, focus, index, setFocus, handleSelect, setSuggestOpen }) => {
 	const itemRef = useRef(null);
 
 	useEffect(() => {
@@ -13,6 +13,10 @@ const ListItem = ({ value, focus, index, setFocus, handleSelect }) => {
 	const handleKeyPres = (event) => {
 		if (event.key === "Enter") {
 			handleSelect(event)
+		} if (event.keyCode === 9) {
+			// close suggestbox if tab is pressed and focus shifts to next component
+			setSuggestOpen(false)
+
 		}
 	};
 
@@ -21,10 +25,10 @@ const ListItem = ({ value, focus, index, setFocus, handleSelect }) => {
  			// set value as index to set focus on this element when selected using handleselect
  			value={index}
 	 		className="hover-bg-gray pointer" 
-	 		tabIndex={!focus ? 0 : -1}
+	 		tabIndex={-1}
 	 		ref={itemRef}
 	 		onClick={handleSelect}
-	 		onKeyPress={handleKeyPres}
+	 		onKeyDown={handleKeyPres}
  		>{value}</li>
 	)
 }

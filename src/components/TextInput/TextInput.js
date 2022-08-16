@@ -1,4 +1,4 @@
-const TextInput = ({label, handleInputChange, value}) => {
+const TextInput = ({label, handleInputChange, value, type="text"}) => {
 	return (
 		<div className="pv1 flex items-center">
 			<label className="dib w4 pr5 mv2"> {label} </label>
@@ -7,7 +7,7 @@ const TextInput = ({label, handleInputChange, value}) => {
 					className="pr5 pb0 h2"
 					value={value}
 					title=""
-					type="text" 
+					type={type} 
 					required 
 					onChange={handleInputChange}/> 
 			</div>

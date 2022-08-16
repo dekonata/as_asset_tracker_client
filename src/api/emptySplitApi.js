@@ -36,6 +36,7 @@ export const emptySplitApi = createApi({
       'Staff', 
       'Transfers', 
       'User',
+      'Assetnotes',
     ],
   endpoints: () => ({}),
 })

@@ -44,7 +44,7 @@ function App() {
       <div className="center-l center-ns mw6-ns bg-white vh-100">
         {route === "login"
           ?
-            <h2> Albatros Asset Tracker Login </h2>
+            <div></div>
           :
             <Navibar />
         }

@@ -26,7 +26,7 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 			const LocationSelectorListObj = {};
 
 			locations.forEach(location => {
-				const selectorValue = parsedLocationId(location.location_type_id, location.location_type) + ': ' + location.location_detail;
+				const selectorValue = location.location
 				const locationId = location.location_id
 				LocationSelectorListObj[selectorValue] = locationId 
 			})
@@ -69,10 +69,11 @@ const AssetTransferForm = ({asset_id, close_transfer, current_location}) => {
 
 	return (
 		<div>
-		{console.log(transferAssetIds)}
 			<form className='bg-black-10'>
+			{console.log(locations)}
 				<SuggestBox 
 					label="Transfer To"
+					initial_input={transferTo}
 					suggestlist={Object.keys(locationListObj)}
 					handleInputChange={selected => setTransferTo(selected)}
 				/>

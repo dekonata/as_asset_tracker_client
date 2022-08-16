@@ -1,8 +1,9 @@
-import React, { useState} from 'react'
+import React, { useState} from 'react';
 import { useSelector } from 'react-redux';
 
-import ViewEditField from '../ViewEditField/ViewEditField'
-import AssetTransferForm from '../AssetTransferForm/AssetTransferForm'
+import ViewEditField from '../ViewEditField/ViewEditField';
+import AssetTransferForm from '../AssetTransferForm/AssetTransferForm';
+import AssetNoteList from '../AssetNoteList/AssetNoteList';
 
 
 import { 
@@ -104,11 +105,16 @@ const AssetCard = ({getStockItemDetails, update, setUpdate }) => {
                                 className="mt3"
 								onClick={() => setMoveOpen(true)}
 								>Capure Stock Movement</button>
-						}				
-								</div>
-
-
 						}
+						<AssetNoteList
+							asset_id={asset?.asset_id}
+
+
+						/>				
+					</div>
+
+
+				}
 			
 		</div>
 	)

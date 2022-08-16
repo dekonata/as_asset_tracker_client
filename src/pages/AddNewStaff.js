@@ -72,6 +72,7 @@ return (
 			<TextInput
 				label="Password:"
 				value={password}
+				type="password"
 				handleInputChange={event => setPassword(event.target.value)}
 				/>
 			{ staffCodeId  && firstname && lastname &&

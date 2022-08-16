@@ -11,6 +11,11 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 
 	// Set filteredList value to first 10 values of suggestlist provided
 	useEffect(() => {
+		// // clear field and parent value for field if suggestlist chagnes
+		// handleInputChange('');
+		// setInputValue('')
+
+
     	if (Array.isArray(suggestlist)) {
     		const shortlist = suggestlist.slice(0,10)
     		setFilteredList(shortlist)
@@ -95,9 +100,12 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 		// Incomplete
 		if(event.key === 'ArrowDown') {
 			setSuggestOpen(true);
-		} else if(event.key === 'Enter' ) {
-			// Add function to select entered value if in list when enter is pressed
-			console.log('Enter')
+		} else if(event.keyCode === 9 ) {
+			// tab
+			setSuggestOpen(false)
+		} else if(event.key === 'Enter') {
+			handleInputChange(inputValue)
+			setSuggestOpen(false)
 		} else {
 			return
 		}
@@ -117,12 +125,11 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 						onChange={handleInput}
 						onClick={toggleSuggest}
 						onKeyDown={handleKeyPress}
-						tabIndex={0}
 						/>
 					{/*Add x to clear field. Currently set to dn (display:none)*/}
 						<span className="dn absolute link pointer fw6 bold link dim" style={{right:"45px", top:"5px"}}>x</span>
 					{suggestOpen ?
-						<div className="">
+						<div className="" >
 						 	<ul className="absolute w5 bg-white list ml0 mt0 pa1 center ba overflow z-max">
 							 	{filteredList.map((item, index) => {
 							 		return(
@@ -133,6 +140,7 @@ const SuggestBox = ({initial_input, label, suggestlist, addNewEnabled, handleInp
 							 				focus={focus === index}
 							 				value={item}
 							 				handleSelect={handleSelect}
+							 				setSuggestOpen={setSuggestOpen}
 							 			/>
 							 		)
 							 	})}

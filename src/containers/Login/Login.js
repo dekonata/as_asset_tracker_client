@@ -1,6 +1,7 @@
 import{ useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
+import logo from './albatros_logo.png'
 
 import TextInput from '../../components/TextInput/TextInput';
 
@@ -73,14 +74,18 @@ const Login = () => {
 
 	return (
 		<div>
+			<div className="bg-black-20 pt2 pb2">
+				<img src={logo} alt="LOGO" className="db center ma0"/>
+			</div>
+			<h2> Login </h2>
 			<form className="">
 				<TextInput 
 					label="Email"
 					handleInputChange={(event) => setEmail(event.target.value)} />
 				<TextInput 
 					label="Password"
+					type="password"
 					handleInputChange={(event) => setPassword(event.target.value)} />
-			</form>
 			{ email && password &&
 				<input 
 					type="submit" 
@@ -88,6 +93,7 @@ const Login = () => {
 					onClick={onSubmitLogin}
 					/>
 			}
+			</form>
 		</div>
 	);
 };
